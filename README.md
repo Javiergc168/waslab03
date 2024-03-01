@@ -2,6 +2,8 @@
 
 Students:
 
-* GÃ³mez, Javier
+* Gómez, Javier
 
 * Dalda, Alvar
+
+Mastodont: javiergc168
