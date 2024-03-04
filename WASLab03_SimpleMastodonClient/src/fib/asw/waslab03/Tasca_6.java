@@ -13,7 +13,7 @@ public class Tasca_6 {
 		
 		try {
 			String output = Request.get(URI)
-					.addHeader("Authorization","Bearer "+TOKEN)
+					.addHeader("Authorization","Bearer "+TOKEN).addHeader("KEY=VALUE", "limit=10")
 					.execute()
 					.returnContent()
 					.asString();
@@ -27,7 +27,7 @@ public class Tasca_6 {
 
 				String URI2 = "https://mastodont.cat/api/v1/timelines/tag/" + tag;	//limit 5			
 				String output2 = Request.get(URI2)
-						.addHeader("Authorization","Bearer "+TOKEN)
+						.addHeader("Authorization","Bearer "+TOKEN).addHeader("KEY=VALUE", "limit=5")
 						.execute()
 						.returnContent()
 						.asString();
