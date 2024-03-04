@@ -2,6 +2,8 @@ package fib.asw.waslab03;
 
 import org.apache.hc.client5.http.fluent.Request;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class Tasca_6 {
 
@@ -15,13 +17,13 @@ public class Tasca_6 {
 					.execute()
 					.returnContent()
 					.asString();
-			System.out.format("Els 10 tags més populars a Mastodon [" + ""/*data i hora actual*/ + "]");
+			System.out.format("Els 10 tags més populars a Mastodon [" + ""/*data i hora actual*/ + "]\n\n");
 			JSONArray result = new JSONArray(output);
 			for (int i=0; i<10; i++) {
 				String tag = result.getJSONObject(i).getString("name");
-				System.out.format("*************************************************");
-				System.out.format("* Tag: " + tag);
-				System.out.format("*************************************************");
+				System.out.format("*************************************************\n");
+				System.out.format("* Tag: " + tag + "\n");
+				System.out.format("*************************************************\n");
 
 				String URI2 = "https://mastodont.cat/api/v1/timelines/tag/" + tag;	//limit 5			
 				String output2 = Request.get(URI2)
@@ -31,9 +33,12 @@ public class Tasca_6 {
 						.asString();
 				JSONArray result2 = new JSONArray(output2);
 				for (int j=0; j<5; j++) {
-					String content = result2.getJSONObject(i).getString("content");
-					System.out.format("- " + content);	
-					System.out.format("-------------------------------------------------");
+					JSONObject jobject = result2.getJSONObject(j);
+					String name = jobject.getJSONObject("account").getString("display_name");
+					String username = jobject.getJSONObject("account").getString("acct");
+					String content = jobject.getString("content").replaceAll("\\<.*?\\>", "");
+					System.out.format("- " + name +  " (" + username + "):" + content + "\n");	
+					System.out.format("-------------------------------------------------\n");
 				}
 				System.out.format("\n");	
 			}
